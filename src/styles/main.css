@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "node_modules/@glidejs/glide/src/assets/sass/glide.core";
+@import "node_modules/@glidejs/glide/src/assets/sass/glide.theme";
+
+
+
+
+
+/*------ Navbar ------*/
+.show-dropdown {
+  @apply opacity-100 backdrop-blur-md translate-y-3
+}
+
+.hide-dropdown {
+  @apply opacity-0 backdrop-blur-0 translate-y-5
+}

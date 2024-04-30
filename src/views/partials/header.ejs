@@ -1,0 +1,300 @@
+<nav class="bg-[#0C0923]  lg:h-20 lg:flex lg:items-center fixed w-full top-0 left-0 border-b border-gray-600/20 z-[999999999]">
+  <div
+    class="container px-8 lg:px-0 xl:px-8 flex flex-wrap items-center justify-between mx-auto p-4 overflow-hidden lg:overflow-visible">
+    <a href="/" class="flex items-center">
+      <img src="/img/codesphere-light.svg" class="h-10 lg:h-10 w-auto" alt="Codesphere Logo">
+    </a>
+
+    <div class="flex lg:order-2">
+      <a href="/ide/signin" type="button"
+        class="text-white  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm px-4 py-2 text-center mr-3 transition-all items-center justify-center w-fit cursor-pointer bg-transparent hover:bg-transparent hover:text-white/80 hidden md:block">Sign
+        In</a>
+
+      <a href="https://signup.codesphere.com/" type="button"
+        class="text-white bg-codesphere-purple hover:bg-codesphere-purple/80 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm px-4 py-2 text-center mr-3 transition-all flex items-center justify-center w-fit cursor-pointer">Get
+        started</a>
+      <button id="menuButton" data-collapse-toggle="navbar-sticky" type="button"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden focus:outline-none focus:ring-1 focus:ring-gray-200/30"
+        aria-controls="navbar-sticky" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <div class="tham tham-e-spin tham-w-6 lg:hidden">
+          <div class="tham-box">
+            <div class="tham-inner bg-white"></div>
+          </div>
+        </div>
+      </button>
+    </div>
+    <div
+      class="items-center justify-between transition-all ease-in-out duration-700 max-h-0 w-full lg:flex lg:w-auto lg:order-1 lg:max-h-full"
+      id="navbar-sticky">
+      <ul id="nav-ul"
+        class="flex flex-col gap-2 lg:gap-0 p-4 lg:p-0 mt-4 font-normal border rounded-lg lg:flex-row lg:space-x-5 xl:space-x-8 lg:mt-0 lg:border-0 border-gray-700">
+        <% nav_items.forEach(function(item) { %>
+          <% index=nav_items.indexOf(item) %>
+            <% if (item.link) { %>
+              <li>
+                <a href="<%= item.link %>"
+                  class="flex h-full text-lg font-semibold lg:items-center lg:text-sm leading-6 text-white p-2 lg:p-0 rounded-md hover:opacity-70 transition-all">
+                  <%= item.name %>
+                </a>
+              </li>
+              <% } %>
+                <% if (item.dropdown) { %>
+                  <!-- DROPDOWN DESKTOP -->
+                  <li class="hidden lg:block">
+                    <div class="relative">
+                      <button type="button"
+                        class="dropdown-btn inline-flex items-center text-sm font-semibold leading-6 text-white"
+                        aria-expanded="false">
+                        <span><%= item.name %></span>
+                        <svg class="h-5 w-5 rotate-0 transition-all" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd"
+                            d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                            clip-rule="evenodd" />
+                        </svg>
+                      </button>
+                      <div
+                        class="z-[9999999999999] hidden hide-dropdown dropdown-content absolute left-1/2 mt-5 flex w-screen max-w-max -translate-x-1/2 translate-y-0 transition ease-out duration-200">
+                        <div
+                          class="w-screen max-w-md flex-auto overflow-hidden rounded-lg bg-gradient-to-br from-[#0E0924]/80 to-[#0C0923]/80 text-sm leading-6 ring-1 ring-codesphere-purple/20 lg:max-w-3xl shadow-lg">
+                          <div class="grid grid-cols-1 gap-3 p-4 lg:grid-cols-2">
+                            <% item.dropdown.forEach(function(item) { %>
+                              <div
+                                class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-codesphere-purple/10 transition-all cursor-pointer">
+                                <!-- <div
+                                  class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                                  <svg class="h-6 w-6 text-gray-600 group-hover:text-indigo-600" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+                                  </svg>
+                                </div> -->
+                                <div>
+                                  <a href="<%= item.link %>" class="font-semibold text-white">
+                                    <%= item.name %>
+                                    <span class="absolute inset-0"></span>
+                                  </a>
+                                  <p class="mt-1 text-gray-400"><%= item.desc %></p>
+                                </div>
+                              </div>
+                              <% }) %>
+                          </div>
+                        </div>
+                      </div>
+                  </li>
+                  <!-- DROPDOWN MOBILE -->
+                  <li class="lg:hidden">
+                    <div class=" text-gray-500">
+                      <div>
+                        <!-- Expand/collapse question button -->
+                        <button type="button"
+                          class="faq-toggle flex w-full items-start justify-between text-left text-white z-30 text-lg lg:text-xs leading-6 p-2 lg:p-0 rounded-md hover:opacity-70 transition-all"
+                          aria-controls="faq-<%- index %>" aria-expanded="false">
+                          <span class="font-semibold leading-7 z-30"><%- item.name %></span>
+                          <span class="ml-6 flex h-7 items-center z-30">
+                            <!-- Icon when question is collapsed. -->
+                            <svg class="faq-collapsed-icon h-6 w-6 z-30" fill="none" viewBox="0 0 24 24"
+                              stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                            </svg>
+                            <!-- Icon when question is expanded. -->
+                            <svg class="faq-expanded-icon hidden h-6 w-6 z-30" fill="none" viewBox="0 0 24 24"
+                              stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                            </svg>
+                          </span>
+                        </button>
+                      </div>
+                      <div
+                        class="px-2 faq-answer overflow-hidden transition-max-height duration-500 ease-in-out z-40 relative"
+                        style="max-height: 0;" id="faq-<%- index %>">
+                        <div class="py-4 flex flex-col gap-4">
+                          <% item.dropdown.forEach(function(item) { %>
+                            <div>
+                              <a href="<%= item.link %>" class="w-full p-2 rounded-md font-semibold text-white">
+                                <%- item.name %>
+                              </a>
+                              <p class="mt-1 text-gray-400 p-2"><%- item.desc %></p>
+                            </div>
+                            <% }) %>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <% } %>
+                    <% }) %>
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuButton = document.getElementById("menuButton");
+    const navbarSticky = document.getElementById("navbar-sticky");
+    const tham = document.querySelector(".tham");
+    const links = document.querySelectorAll("#nav-ul a"); // Get all the links
+
+    menuButton.addEventListener("click", function () {
+      const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+      if (isExpanded) {
+        navbarSticky.classList.remove("max-h-[2000px]");
+        tham.classList.remove('tham-active');
+      } else {
+        navbarSticky.classList.add("max-h-[2000px]");
+        tham.classList.add('tham-active');
+
+        // Highlight the link after opening the menu
+        highlightCurrentPageLink();
+      }
+      menuButton.setAttribute("aria-expanded", !isExpanded);
+    });
+
+    // Function to highlight the current page's link based on the path
+    function highlightCurrentPageLink() {
+      const currentPath = window.location.pathname; // Get the current path (e.g., "/about")
+
+
+      // Remove active styles from all links
+      links.forEach(link => {
+        link.classList.remove("bg-codesphere-purple", "md:bg-transparent", "md:text-codesphere-purple");
+        link.removeAttribute("aria-current", "page");
+      });
+
+      // Find the link that matches the current path and highlight it
+      links.forEach(link => {
+        if (link.pathname === currentPath && link.hostname === window.location.hostname) {
+          link.classList.add("bg-codesphere-purple", "md:bg-transparent", "md:text-codesphere-purple");
+          link.setAttribute("aria-current", "page");
+        }
+      });
+    }
+
+    // Call the function on page load
+    highlightCurrentPageLink();
+  });
+
+  //Event Listener Toggle Dropdown Desktop
+  document.addEventListener("DOMContentLoaded", function () {
+  const dropdownButtons = document.querySelectorAll('.dropdown-btn');
+
+  function hideDropdown(dropdown, time) {
+    setTimeout(() => {
+      dropdown.style.display = "none";
+    }, time);
+  }
+
+  function showDropdown(dropdown, time) {
+    setTimeout(() => {
+      dropdown.style.display = "block";
+      dropdown.classList.remove("hidden");
+    }, time);
+  }
+
+  dropdownButtons.forEach(button => {
+    button.addEventListener('mouseenter', function () {
+      const dropdownContent = this.nextElementSibling;
+      showDropdown(dropdownContent, 0);
+    });
+
+    button.addEventListener('click', function (event) {
+      const svgIcon = this.querySelector('svg'); // Correct placement inside the event listener
+
+      // First, close all dropdowns
+      const allDropdownContents = document.querySelectorAll('.dropdown-content');
+      allDropdownContents.forEach(content => {
+        if (content !== this.nextElementSibling) {
+          content.classList.remove('show-dropdown');
+          content.classList.add('hide-dropdown');
+          const otherSvgIcon = content.previousElementSibling.querySelector('svg');
+          if (otherSvgIcon) {
+            otherSvgIcon.style.transform = 'rotate(0deg)';
+          }
+
+          hideDropdown(content, 200);
+        }
+      });
+
+      // Toggle the clicked dropdown
+      const dropdownContent = this.nextElementSibling;
+      if (dropdownContent.classList.contains('hide-dropdown')) {
+        showDropdown(dropdownContent, 0);
+        dropdownContent.classList.remove('hide-dropdown');
+        dropdownContent.classList.add('show-dropdown');
+        svgIcon.style.transform = 'rotate(180deg)';
+      } else {
+        dropdownContent.classList.remove('show-dropdown');
+        dropdownContent.classList.add('hide-dropdown');
+        svgIcon.style.transform = 'rotate(0deg)';
+        hideDropdown(dropdownContent, 200);
+      }
+
+      // Prevent the document click listener from immediately closing this dropdown
+      event.stopPropagation();
+    });
+  });
+
+  // Close all dropdowns when clicking elsewhere on the document
+  document.addEventListener('click', function () {
+    const allDropdownContents = document.querySelectorAll('.dropdown-content');
+    allDropdownContents.forEach(content => {
+      if (!content.classList.contains("hidden")) {
+        content.classList.add('hide-dropdown');
+        hideDropdown(content, 200);
+        const svgIcon = content.previousElementSibling.querySelector('svg');
+        if (svgIcon) {
+          svgIcon.style.transform = 'rotate(0deg)';
+        }
+      }
+    });
+  });
+
+  // Stop propagation for clicks inside the dropdown to prevent them from closing
+  document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+    dropdown.addEventListener('click', function (event) {
+      event.stopPropagation();
+    });
+  });
+});
+
+
+  //Event Listener Toggle Accordion Mobile
+
+  document.addEventListener('DOMContentLoaded', function () {
+    let faqToggles = document.querySelectorAll('.faq-toggle');
+
+    faqToggles.forEach(function (toggle) {
+      toggle.addEventListener('click', function () {
+        // Close all FAQ items
+        faqToggles.forEach(function (innerToggle) {
+          if (innerToggle !== toggle) {
+            let innerAnswer = document.getElementById(innerToggle.getAttribute('aria-controls'));
+            innerAnswer.style.maxHeight = '0';
+            innerToggle.querySelector('.faq-collapsed-icon').classList.remove('hidden');
+            innerToggle.querySelector('.faq-expanded-icon').classList.add('hidden');
+            innerToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        // Toggle the clicked FAQ item
+        let answer = document.getElementById(this.getAttribute('aria-controls'));
+        if (answer.style.maxHeight !== '0px') {
+          answer.style.maxHeight = '0';
+        } else {
+          // Dynamically set max-height based on content's scrollHeight
+          answer.style.maxHeight = `${answer.scrollHeight}px`;
+        }
+
+        let collapsedIcon = this.querySelector('.faq-collapsed-icon');
+        let expandedIcon = this.querySelector('.faq-expanded-icon');
+        collapsedIcon.classList.toggle('hidden');
+        expandedIcon.classList.toggle('hidden');
+
+        let expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !expanded);
+      });
+    });
+  });
+
+</script>

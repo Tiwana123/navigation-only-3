@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% if (typeof metaData !== 'undefined') { %>
+        <%- metaData %>
+    <% } %>
+
+    <link rel="icon" type="image/png" sizes="180x180" href="<%= levelPrefix %>img/apple-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= levelPrefix %>img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= levelPrefix %>img/favicon-16x16.png">
+
+    <!-- <base href="https://codesphere.com/"> -->
+
+    <link rel='stylesheet' href='<%= levelPrefix %>styles/main.css'>
+    <% if (typeof additionalStyles !== 'undefined') { %>
+        <%- additionalStyles %>
+    <% } %>
+
+
+</head>
+
+<body class=" bg-dark-bg no-x-scroll overflow-x-hidden">
+    <header>
+        <%- include("../partials/header.ejs") %>
+
+    </header>
+    <main class="pt-16 lg:pt-20 z-30">
+        <%- body %>
+    </main>
+
+
+
+</body>
+
+</html>

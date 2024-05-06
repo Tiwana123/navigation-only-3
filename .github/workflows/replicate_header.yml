@@ -1,0 +1,41 @@
+name: Replicate Header Changes
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  replicate_changes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v2
+
+      - name: Check for changes in header.ejs
+        id: check_changes
+        run: |
+          git diff --name-only HEAD^ HEAD | grep '^header\.ejs$' || true
+        continue-on-error: true
+
+      - name: Clone target repository
+        uses: actions/checkout@v2
+        with:
+          repository: codesphere-community/navigation-only-2
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Copy changes to target repository
+        if: steps.check_changes.outputs.stdout != ''
+        run: |
+          cp /src/views/partials/header.ejs ../navigation-only-2/src/views/partials/header.ejs
+
+      - name: Commit and push changes to target repository
+        if: steps.check_changes.outputs.stdout != ''
+        run: |
+          cd ../navigation-only-2
+          git config user.name "GitHub Action"
+          git config user.email "actions@users.noreply.github.com"
+          git add /src/views/partials/header.ejs
+          git commit -m "Update header.ejs from website"
+          git push origin main

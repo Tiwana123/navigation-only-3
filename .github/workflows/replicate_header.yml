@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: codesphere-community/navigation-only-2
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.SCOPED_GITHUB_TOKEN }}
 
       - name: Copy changes to target repository
         if: steps.check_changes.outputs.stdout != ''

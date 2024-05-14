@@ -1,1 +1,69 @@
+'on':
+  push:
+    branches:
+      - main
+jobs:
+  replicate_changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+        with:
+          repository: Tiwana123/navigation-only-3
+          token: '${{ secrets.SCOPED_GITHUB_TOKEN }}'
+          fetch-depth: 0
+      - name: Check for changes in navbar
+        id: check_changes
+        run: >
+          if ! git diff --name-only ${{ github.event.before }} ${{ github.sha }}
+          > changed_files.txt; then
+            echo "Error: Failed to generate list of changed files."
+            exit 1
+          fi
+
+
+          # Read the list of changed files into a variable
+
+          changed_files=$(cat changed_files.txt)
+
+
+          # Set the environment variable with the list of changed files (using
+          quotes for safety)
+
+          echo "files='${changed_files//$'\n'/,}'" >> $GITHUB_ENV
+
+
+          # Display the list of changed files for debugging purposes
+
+          echo "Changed files: $changed_files"
+      - name: Check for navbar changes
+        id: check_navbar_changes
+        run: |
+          if grep -q "src/data.js" changed_files.txt; then
+            echo "Navbar changed"
+            echo "navbar_changed=true" >> "$GITHUB_ENV"            
+          else
+            echo "Navbar not changed"
+            echo "navbar_changed=false" >> "$GITHUB_ENV"
+          fi
+      - name: Clone target repository
+        if: env.navbar_changed == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: Tiwana123/navigation-only-2
+          token: '${{ secrets.SCOPED_GITHUB_TOKEN }}'
+          path: target_directory
+      - name: Copy changes to target repository
+        if: env.navbar_changed == 'true'
+        run: |
+          cp src/data.js target_directory/src/data.js
+      - name: Commit and push changes to target repository
+        if: env.navbar_changed == 'true'
+        run: |
+          cd target_directory
+          git config user.name "GitHub Action"
+          git config user.email "actions@users.noreply.github.com"
+          git add src/data.js
+          git commit -m "Sync navbar from website" || true
+          git push origin main
 
